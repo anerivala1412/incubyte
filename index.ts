@@ -6,7 +6,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-const add = (numbers: string = ""): number => {
+export const add = (numbers: string = ""): number => {
     if (!numbers) return 0;
 
     let delimiter = /,|\n/;
