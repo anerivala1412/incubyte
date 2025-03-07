@@ -16,9 +16,15 @@ const add = (numbers: string = ""): number => {
         numbers = numString;
     }
 
-    return numbers.split(delimiter).map(Number).reduce((sum, num) => sum + num, 0);
+    const numArray = numbers.split(delimiter).map(Number);
+    const negatives = numArray.filter(n => n < 0);
+
+    if (negatives.length) throw new Error(`negative numbers not allowed ${negatives.join(",")}`);
+
+    return numArray.reduce((sum, num) => sum + num, 0);
 };
 
+console.log("Enter numbers ===>");
 let userInput = "";
 
 rl.on("line", (line) => {
