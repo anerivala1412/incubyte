@@ -8,7 +8,15 @@ const rl = readline.createInterface({
 
 const add = (numbers: string = ""): number => {
     if (!numbers) return 0;
-    return numbers.split(/,|\n/).map(Number).reduce((sum, num) => sum + num, 0);
+
+    let delimiter = /,|\n/;
+    if (numbers.startsWith("//")) {
+        const [delimiterLine, numString] = numbers.split("\n", 2);
+        delimiter = new RegExp(delimiterLine.slice(2).replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&"));
+        numbers = numString;
+    }
+
+    return numbers.split(delimiter).map(Number).reduce((sum, num) => sum + num, 0);
 };
 
 let userInput = "";
